@@ -1,0 +1,52 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+const int N = 100010;
+
+int head = -1, e[N], ne[N], idx = 0;
+
+void add_to_head(int x)
+{
+    e[idx] = x, ne[idx] = head, head = idx++;
+}
+
+void add(int k, int x)
+{
+    e[idx] = x, ne[idx] = ne[k], ne[k] = idx++;
+}
+
+void remove(int k)
+{
+    if (k != -1) ne[k] = ne[ne[k]];
+    else head = ne[head];
+}
+
+int main()
+{
+    int n;
+    cin >> n;
+    
+    char ch;
+    int k, x;
+    while (n--) {
+        cin >> ch;
+        if (ch == 'H') {
+            cin >> x;
+            add_to_head(x);
+        }
+        else if (ch == 'D') {
+            cin >> k;
+            remove(k - 1);
+        }
+        else {
+            cin >> k >> x;
+            add(k - 1, x);
+        }
+    }
+    
+    for (int i = head; i != -1; i = ne[i]) printf("%d ", e[i]);
+    
+    return 0;
+}
