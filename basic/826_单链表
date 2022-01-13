@@ -10,12 +10,12 @@ int e[N], ne[N], head, idx;
 
 void init()
 {
-    head = 0, ne[head] = -1, idx = 1;
+    head = -1, idx = 0;
 }
 
 void add_to_head(int x)
 {
-    e[idx] = x, ne[idx] = ne[head], ne[head] = idx++;
+    e[idx] = x, ne[idx] = head, head = idx++;
 }
 
 void add(int k, int x)
@@ -25,7 +25,8 @@ void add(int k, int x)
 
 void remove(int k)
 {
-    ne[k] = ne[ne[k]];
+    if (k != -1) ne[k] = ne[ne[k]];
+    else head = ne[head];
 }
 
 int main()
@@ -45,16 +46,16 @@ int main()
                 break;
             case 'D':
                 cin >> k;
-                remove(k);
+                remove(k - 1);
                 break;
             case 'I':
                 cin >> k >> x;
-                add(k, x);
+                add(k - 1, x);
                 break;
         }
     }
     
-    for (int i = ne[head]; i != -1; i = ne[i]) printf("%d ", e[i]);
+    for (int i = head; i != -1; i = ne[i]) printf("%d ", e[i]);
     
     return 0;
 }
