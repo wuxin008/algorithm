@@ -3,9 +3,15 @@
 
 using namespace std;
 
-const int N = 100010;
+const int N = 1000010;
 
-int head = -1, e[N], ne[N], idx = 0;
+int n;
+int e[N], ne[N], head, idx;
+
+void init()
+{
+    head = -1, idx = 1;
+}
 
 void add_to_head(int x)
 {
@@ -19,30 +25,33 @@ void add(int k, int x)
 
 void remove(int k)
 {
-    if (k != -1) ne[k] = ne[ne[k]];
+    if (k) ne[k] = ne[ne[k]];
     else head = ne[head];
 }
 
 int main()
 {
-    int n;
     cin >> n;
     
-    char ch;
+    init();
+    
     int k, x;
+    char ch;
     while (n--) {
         cin >> ch;
-        if (ch == 'H') {
-            cin >> x;
-            add_to_head(x);
-        }
-        else if (ch == 'D') {
-            cin >> k;
-            remove(k - 1);
-        }
-        else {
-            cin >> k >> x;
-            add(k - 1, x);
+        switch (ch) {
+            case 'H':
+                cin >> x;
+                add_to_head(x);
+                break;
+            case 'D':
+                cin >> k;
+                remove(k);
+                break;
+            case 'I':
+                cin >> k >> x;
+                add(k, x);
+                break;
         }
     }
     
