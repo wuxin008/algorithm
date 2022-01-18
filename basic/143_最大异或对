@@ -7,7 +7,7 @@ const int N = 1000010, M = 31 * N;
 
 int n;
 int a[N];
-int son[M][2], idx = 0;
+int son[N][2], idx = 0;
 
 void insert(int x)
 {
