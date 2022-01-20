@@ -1,0 +1,48 @@
+//AcWing
+#include<iostream>
+#include<cstring>
+
+using namespace std;
+
+const int N = 1010;
+
+typedef pair<int, int> PII;
+
+int n, m;
+int map[N][N], len[N][N];
+PII q[N * N];
+
+int bfs()
+{
+    memset(len, -1, sizeof len);
+    int hh = 0, tt = -1;
+    q[++tt] = {0, 0};
+    len[0][0] = 0;
+    
+    while (hh <= tt) {
+        auto head = q[hh++];
+        int dx[4] = {-1, 1, 0, 0}, dy[4] = {0, 0, -1, 1};
+        for (int i = 0; i < 4; ++i) {
+            int x = head.first + dx[i], y = head.second + dy[i];
+            if (x >= 0 && x < n && y >= 0 && y < m && map[x][y] == 0 && len[x][y] == -1) {
+                len[x][y] = len[head.first][head.second] + 1;
+                q[++tt] = {x, y};
+            }
+        }
+    }
+    
+    return len[n - 1][m - 1];
+}
+
+int main()
+{
+    scanf("%d %d", &n, &m);
+    
+    for (int i = 0; i < n; ++i) 
+        for (int j = 0; j < m; ++j)
+            scanf("%d", &map[i][j]);
+            
+    cout << bfs() << endl;
+    
+    return 0;
+}
