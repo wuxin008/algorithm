@@ -6,21 +6,21 @@ using namespace std;
 
 const int N = 510, M = 100010, inf = 0x3f3f3f3f;
 
-int n, m, k;
-int dist[N], backup[N];
-
 struct Edge {
     int a, b, w;
 }edges[M];
+
+int n, m, k;
+int dist[N], backup[N];
 
 int bellman_ford()
 {
     memset(dist, inf, sizeof dist);
     dist[1] = 0;
     
-    for (int i = 0; i < k; ++i) {
+    for (int i = 0; i < k; i++) {
         memcpy(backup, dist, sizeof dist);
-        for (int j = 0; j < m; j++) {
+        for (int j = 0; j < m; ++j) {
             int a = edges[j].a, b = edges[j].b, w = edges[j].w;
             dist[b] = min(dist[b], backup[a] + w);
         }
@@ -33,7 +33,6 @@ int bellman_ford()
 int main()
 {
     scanf("%d%d%d", &n, &m, &k);
-    
     for (int i = 0; i < m; ++i) {
         int a, b, w;
         scanf("%d%d%d", &a, &b, &w);
@@ -41,9 +40,8 @@ int main()
     }
     
     int t = bellman_ford();
-    
     if (t == -inf) cout << "impossible";
-    else printf("%d", t);
+    else cout << t;
     
     return 0;
 }
