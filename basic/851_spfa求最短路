@@ -31,8 +31,8 @@ void spfa()
     while (q.size()) {
         int t = q.front();
         q.pop();
-        
         st[t] = 0;
+        
         for (int i = h[t]; i != -1; i = ne[i]) {
             int k = e[i];
             if (dist[k] > dist[t] + w[i]) {
@@ -51,15 +51,16 @@ int main()
     scanf("%d%d", &n, &m);
     
     memset(h, -1, sizeof h);
+    
     for (int i = 0; i < m; ++i) {
-        int a, b, c;
-        scanf("%d%d%d", &a, &b, &c);
-        add(a, b, c);
+        int a, b, w;
+        scanf("%d%d%d", &a, &b, &w);
+        add(a, b, w);
     }
     
     spfa();
     
-    if (dist[n] > inf / 2) cout << "impossible";
+    if (dist[n] == inf) cout << "impossible";
     else cout << dist[n];
     
     return 0;
