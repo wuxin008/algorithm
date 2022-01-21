@@ -13,28 +13,26 @@ void dijkstra()
 {
     memset(dist, inf, sizeof dist);
     dist[1] = 0;
-    
-    for (int i = 0; i < n; ++i) {
+    for (int i = 1; i <= n; ++i) {
         int dot = 0;
         for (int j = 1; j <= n; ++j) {
-            if (!st[j] && (!dot || dist[dot] > dist[j]))
+            if (!st[j] && dist[dot] > dist[j])
                 dot = j;
         }
-        st[dot] = 1;
+        st[dot]++;
         for (int j = 1; j <= n; ++j) {
-            dist[j] = min(dist[dot] + map[dot][j], dist[j]);
+            dist[j] = min(dist[j], dist[dot] + map[dot][j]);
         }
     }
 }
 
 int main()
 {
-    scanf("%d%d", &n, &m);
-    
     memset(map, inf, sizeof map);
+    scanf("%d %d", &n, &m);
     
     int x, y, z;
-    for (int i = 0; i < m; ++i) {
+    while (m--) {
         scanf("%d %d %d", &x, &y, &z);
         map[x][y] = min(map[x][y], z);
     }
