@@ -1,0 +1,46 @@
+//AcWing
+#include<iostream>
+#include<cstring>
+
+using namespace std;
+
+const int N = 510, inf = 0x3f3f3f3f;
+
+int n, m;
+int map[N][N], dist[N], st[N];
+
+void dijkstra()
+{
+    memset(dist, inf, sizeof dist);
+    dist[1] = 0;
+    for (int i = 1; i <= n; ++i) {
+        int dot = 0;
+        for (int j = 1; j <= n; ++j) {
+            if (!st[j] && dist[dot] > dist[j])
+                dot = j;
+        }
+        st[dot]++;
+        for (int j = 1; j <= n; ++j) {
+            dist[j] = min(dist[j], dist[dot] + map[dot][j]);
+        }
+    }
+}
+
+int main()
+{
+    memset(map, inf, sizeof map);
+    scanf("%d %d", &n, &m);
+    
+    int x, y, z;
+    while (m--) {
+        scanf("%d %d %d", &x, &y, &z);
+        map[x][y] = min(map[x][y], z);
+    }
+    
+    dijkstra();
+    
+    if (dist[n] == inf) cout << -1;
+    else cout << dist[n];
+    
+    return 0;
+}

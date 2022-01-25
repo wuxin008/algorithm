@@ -1,0 +1,21 @@
+//AcWing
+#include<iostream>
+#include<cmath>
+
+using namespace std;
+
+int main()
+{
+    double x;
+    scanf("%lf", &x);
+    
+    double l = 0, r = fabs(x) >= 1 ? fabs(x) : 1;
+    while (r - l >= 1e-8) {
+        double mid = ( l + r ) / 2;
+        if (mid * mid * mid >= fabs(x)) r = mid;
+        else l = mid;
+    }
+    
+    printf("%lf", x / fabs(x) * l);
+    return 0;
+}

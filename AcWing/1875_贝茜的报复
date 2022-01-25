@@ -1,0 +1,43 @@
+//AcWing
+#include<iostream>
+#include<map>
+
+using namespace std;
+
+const int N = 100010;
+
+int n, res = 0;
+map<char, int> odd, even, ans;
+string s = "BESIGOM";
+
+void dfs(int u, int x)
+{
+    if (u == 7) {
+        if ((ans['B'] + ans['I']) % 2 && (ans['M'] % 2) && (ans['G'] + ans['O'] + ans['E'] + ans['S']) % 2) return;
+        res += x;
+        return ;
+    }
+    
+    char ch = s[u];
+    ans[ch] = 1, dfs(u + 1, x * odd[ch]);
+    ans[ch] = 2, dfs(u + 1, x * even[ch]);
+}
+
+int main()
+{
+    scanf("%d", &n);
+    
+    char ch[2];
+    int x;
+    while (n--) {
+        scanf("%s%d", ch, &x);
+        if (x % 2) odd[*ch]++;
+        else even[*ch]++;
+    }
+    
+    dfs(0, 1);
+    
+    printf("%d\n", res);
+    
+    return 0;
+}

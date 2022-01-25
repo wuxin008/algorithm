@@ -1,0 +1,56 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+const int N = 1000010, M = 31 * N;
+
+int n;
+int a[N];
+int son[N][2], idx = 0;
+
+void insert(int x)
+{
+    int p = 0;
+    for (int i = 30; i >= 0; --i) {
+        int k = x >> i & 1;
+        if (!son[p][k]) son[p][k] = ++idx;
+        p = son[p][k];
+    }
+}
+
+int query(int x)
+{
+    int p = 0, res = 0;
+    for (int i = 30; i >= 0; --i) {
+        int k = x >> i & 1;
+        if (son[p][!k]) {
+            p = son[p][!k];
+            res = res * 2 + !k;
+        }
+        else {
+            p = son[p][k];
+            res = res * 2 + k;
+        }
+    }
+    
+    return res;
+}
+
+int main()
+{
+    scanf("%d", &n);
+    
+    for (int i = 0; i < n; ++i) scanf("%d", &a[i]);
+    
+    int res = 0;
+    for (int i = 0; i < n; ++i) {
+        insert(a[i]);
+        int y = query(a[i]);
+        res = max(res, a[i] ^ y);
+    }
+    
+    cout << res << endl;
+    
+    return 0;
+}

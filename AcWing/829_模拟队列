@@ -1,0 +1,36 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+const int N = 100010;
+
+int n;
+int q[N], hh = 0, tt = -1;
+
+int main()
+{
+    cin >> n;
+    
+    int x;
+    string str;
+    while (n--) {
+        cin >> str;
+        if (str == "push") {
+            cin >> x;
+            q[++tt] = x;
+        }
+        else if (str == "empty") {
+            if (hh <= tt) printf("NO\n");
+            else printf("YES\n");
+        }
+        else if (str == "query") {
+            printf("%d\n", q[hh]);
+        }
+        else {
+            hh++;
+        }
+    }
+    
+    return 0;
+}

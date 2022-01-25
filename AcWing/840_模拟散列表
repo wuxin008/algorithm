@@ -1,0 +1,97 @@
+//AcWing
+//answer 1
+#include<iostream>
+#include<cstring>
+
+using namespace std;
+
+const int N = 100003;
+
+int n;
+int h[N], e[N], ne[N], idx = 0;
+
+void insert(int x)
+{
+    int k = (x % N + N) % N;
+    
+    e[idx] = x;
+    ne[idx] = h[k];
+    h[k] = idx++;
+}
+
+int find(int x)
+{
+    int k = (x % N + N) % N;
+    
+    for (int i = h[k]; i != -1; i = ne[i])
+        if (e[i] == x) 
+            return 1;
+    
+    return 0;
+}
+
+int main()
+{
+    scanf("%d", &n);
+    
+    memset(h, -1, sizeof(h));
+    
+    char op[2];
+    int x;
+    while (n--) {
+        scanf("%s %d", op, &x);
+        
+        if (op[0] == 'I') insert(x);
+        else {
+            if (find(x)) puts("Yes");
+            else puts("No");
+        }
+    }
+    
+    return 0;
+}
+
+//answer 2
+#include<iostream>
+#include<cstring>
+
+using namespace std;
+
+const int N = 2000003;
+
+int n;
+int h[N], null = 0x3f3f3f3f;
+
+int find(int x)
+{
+    int k = (x % N + N) % N;
+    
+    while (h[k] != null && h[k] != x) {
+        k++;
+        if (k == N)
+            k = 0;
+    }
+    
+    return k;
+}
+
+int main()
+{
+    scanf("%d", &n);
+    memset(h, 0x3f, sizeof(h));
+    
+    char op[2];
+    int x;
+    while (n--) {
+        scanf("%s %d", op, &x);
+        
+        int k = find(x);
+        if (*op == 'I') h[k] = x;
+        else {
+            if (h[k] == null) puts("No");
+            else puts("Yes");
+        }
+    }
+    
+    return 0;
+}

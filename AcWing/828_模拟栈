@@ -1,0 +1,36 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+const int N = 100010;
+
+int n;
+int stk[N], tt = 0;
+
+int main()
+{
+    cin >> n;
+    
+    int x;
+    string str;
+    while (n--) {
+        cin >> str;
+        if (str == "push") {
+            cin >> x;
+            stk[++tt] = x;
+        }
+        else if (str  == "query") {
+            printf("%d\n", stk[tt]);
+        }
+        else if (str == "pop") {
+            tt--;
+        }
+        else {
+            if (!tt) printf("YES\n");
+            else printf("NO\n");
+        }
+    }
+    
+    return 0;
+}
