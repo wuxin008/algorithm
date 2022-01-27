@@ -1,0 +1,40 @@
+//AcWing
+#include<iostream>
+#include<map>
+
+using namespace std;
+
+const int N = 1e9 + 7;
+
+typedef long long LL;
+
+int n;
+map<int, int> prime;
+
+int main()
+{
+    scanf("%d", &n);
+    
+    int x;
+    while (n--) {
+        scanf("%d", &x);
+        
+        for (int i = 2; i <= x / i; ++i) {
+            while (x % i == 0) {
+                x /= i;
+                prime[i]++;
+            }
+        }
+        
+        if (x > 1) prime[x]++;
+    }
+    
+    LL res = 1;
+    for (auto p : prime) {
+        res = (res * (p.second + 1)) % N;
+    }
+    
+    printf("%lld", res);
+    
+    return 0;
+}
