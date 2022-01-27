@@ -3,9 +3,9 @@
 
 using namespace std;
 
-int gcb(int a, int b)
+int gcd(int a, int b)
 {
-    return b ? gcb(b, a % b) : a;
+    return b ? gcd(b, a % b) : a;
 }
 
 int main()
@@ -17,7 +17,7 @@ int main()
     while (n--) {
         scanf("%d%d", &a, &b);
         
-        printf("%d\n", gcb(a, b));
+        printf("%d\n", gcd(a, b));
     }
     
     return 0;
