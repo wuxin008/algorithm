@@ -4,7 +4,7 @@
 
 using namespace std;
 
-const int N = 1e9 + 7;
+const int mod = 1e9 + 7;
 
 typedef long long LL;
 
@@ -31,7 +31,7 @@ int main()
     
     LL res = 1;
     for (auto p : prime) {
-        res = (res * (p.second + 1)) % N;
+        res = (res * (p.second + 1)) % mod;
     }
     
     printf("%lld", res);
