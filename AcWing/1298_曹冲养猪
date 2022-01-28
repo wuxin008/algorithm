@@ -1,0 +1,49 @@
+//AcWing
+#include<iostream>
+#include<map>
+
+using namespace std;
+
+typedef long long LL;
+
+int n;
+map<int, int> all;
+
+int exgcd(LL a, int b, int &x, int &y)
+{
+    if (!b) {
+        x = 1, y = 0;
+        return a;
+    }
+    int t = exgcd(b, a % b, y, x);
+    y -= a / b * x;
+    return t;
+}
+
+int main()
+{
+    scanf("%d", &n);
+
+    LL M = 1;
+
+    int a, b;
+    while (n--) {
+        scanf("%d%d", &a, &b);
+        M *= a;
+        all[a] = b;
+    }
+
+    LL res = 0;
+    for (auto item : all) {
+        int a = item.first, b = item.second;
+
+        int x, y;
+        LL m = M / a;
+        exgcd(m, a, x, y);
+        x = (x % a + a) % a;
+        res = (res + b * m * x) % M;
+    }
+    printf("%lld", res);
+
+    return 0;
+}
