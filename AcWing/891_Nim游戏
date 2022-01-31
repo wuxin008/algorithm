@@ -1,0 +1,22 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+int main()
+{
+    int res = 0, n;
+    scanf("%d", &n);
+    
+    int x;
+    while (n--) {
+        scanf("%d", &x);
+        
+        res ^= x;
+    }
+    
+    if (res) puts("Yes");
+    else puts("No");
+    
+    return 0;
+}
