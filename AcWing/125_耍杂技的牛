@@ -1,0 +1,48 @@
+//AcWing
+#include<iostream>
+#include<algorithm>
+
+using namespace std;
+
+typedef pair<int, int> PII;
+
+typedef long long LL;
+
+const int N = 100010;
+
+int n;
+pair<int, PII> a[N];
+int strong[N];
+
+bool cmp(pair<int, PII> &A, pair<int, PII> &B)
+{
+    if (A.first != B.first) return A.first < B.first;
+    return true;
+}
+
+int main()
+{
+    cin >> n;
+    for (int i = 1; i <= n; ++i) {
+        int w, s;
+        scanf("%d%d", &w, &s);
+        a[i] = {w + s, {w, s}};
+    }
+    
+    sort(a + 1, a + n + 1, cmp);
+    
+    for (int i = 1; i <= n; ++i) strong[i] = a[i].second.first + strong[i - 1];
+    
+    int pos = 1, ans_p = strong[0] - a[1].second.second;
+    for (int i = 1; i <= n; ++i) {
+        int w = a[i].second.first, s = a[i].second.second;
+        if (ans_p < strong[i - 1] - s) {
+            pos = i;
+            ans_p = strong[i - 1] - s;
+        }
+    }
+    
+    cout << ans_p << endl;
+    
+    return 0;
+}
