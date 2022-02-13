@@ -1,0 +1,50 @@
+//AcWing
+#include<iostream>
+#include<map>
+#include<queue>
+
+using namespace std;
+
+typedef long long LL;
+
+const int N = 1000010;
+
+int a, b;
+
+int bfs(int a, int b)
+{
+    int B = 2 * b;
+    map<int, int> dist;
+    dist[a] = 0;
+    
+    queue<int> q;
+    q.push(a);
+    
+    while (q.size()) {
+        int t = q.front();
+        q.pop();
+        
+        if (t == b) return dist[t];
+        
+        if (!dist.count(t * 2) && t <= b) {
+            dist[t * 2] = dist[t] + 1;
+            q.push(t * 2);
+        }
+        
+        if (t - 1 > 0 && !dist.count(t - 1)) {
+            dist[t - 1] = dist[t] + 1;
+            q.push(t - 1);
+        }
+    }
+    
+    return dist[b];
+}
+
+int main()
+{
+    cin >> a >> b;
+    
+    printf("%d\n", bfs(a, b));
+    
+    return 0;
+}
