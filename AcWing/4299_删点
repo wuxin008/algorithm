@@ -1,0 +1,21 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+int main()
+{
+    int a, b, n;
+    cin >> n;
+    while (n--) {
+        int x, y;
+        cin >> x >> y;
+        if (x > 0) a++;
+        else b++;
+    }
+    
+    if (a <= 1 || b <= 1) puts("Yes");
+    else puts("No");
+    
+    return 0;
+}
