@@ -1,0 +1,44 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+const int N = 5010;
+
+int n, m;
+int a[N][N];
+
+int main()
+{
+    cin >> n >> m;
+    
+    int l = 0;
+    
+    for (int i = 0; i < n; ++i) {
+        int x, y, c;
+        cin >> x >> y >> c;
+        a[x + 1][y + 1] += c;
+        
+        l = max(x + 1, max(y + 1, l));
+    }
+    
+    m = min(l, m);
+    
+    
+    for (int i = 1; i <= l; ++i) {
+        for (int j = 1; j <= l; ++j) {
+            a[i][j] = a[i - 1][j] + a[i][j - 1] - a[i - 1][j - 1] + a[i][j];
+        }
+    }
+    
+    int maxs = 0;
+    for (int i = m; i <= l; ++i) {
+        for (int j = m; j <= l; ++j) {
+            maxs = max(maxs, a[i][j] - a[i - m][j] - a[i][j - m] + a[i - m][j - m]);
+        }
+    }
+    
+    cout << maxs << endl;
+    
+    return 0;
+}
