@@ -1,0 +1,24 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+typedef unsigned long long ULL;
+
+ULL a, b, p;
+
+int main()
+{
+    cin >> a >> b >> p;
+    
+    ULL res = 0;
+    while (b) {
+        if (b & 1) res = (res + a) % p;
+        a = a * 2 % p;
+        b >>= 1;
+    }
+    
+    cout << res << endl;
+    
+    return 0;
+}
