@@ -12,18 +12,16 @@ int main()
 {
     cin >> n >> m;
     
-    int l = 0;
-    
+    int l = 0, r = 0;
     for (int i = 0; i < n; ++i) {
         int x, y, c;
         cin >> x >> y >> c;
-        a[x + 1][y + 1] += c;
+        a[++x][++y] += c;
         
-        l = max(x + 1, max(y + 1, l));
+        l = max(l, max(x, y));
     }
     
-    m = min(l, m);
-    
+    r = min(m, l);
     
     for (int i = 1; i <= l; ++i) {
         for (int j = 1; j <= l; ++j) {
@@ -32,9 +30,9 @@ int main()
     }
     
     int maxs = 0;
-    for (int i = m; i <= l; ++i) {
-        for (int j = m; j <= l; ++j) {
-            maxs = max(maxs, a[i][j] - a[i - m][j] - a[i][j - m] + a[i - m][j - m]);
+    for (int i = r; i <= l; ++i) {
+        for (int j = r; j <= l; ++j) {
+            maxs = max(maxs, a[i][j] - a[i - r][j] - a[i][j - r] + a[i - r][j - r]);
         }
     }
     
