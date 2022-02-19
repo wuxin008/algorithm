@@ -1,0 +1,25 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+const int N = 110;
+
+int n;
+
+int main()
+{
+    cin >> n;
+    
+    int pos = 0, neg = 0;
+    for (int i = 0; i < n; ++i) {
+        int x;
+        cin >> x;
+        if (x > 0) pos += x;
+        else neg += x;
+    }
+    
+    cout << pos - neg << endl;
+    
+    return 0;
+}
