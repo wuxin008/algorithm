@@ -1,0 +1,56 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+const int N = 100010;
+
+int n, m;
+int p[N];
+int cnt[N];
+
+int find(int x)
+{
+    if (x != p[x]) p[x] = find(p[x]);
+    return p[x];
+}
+
+int main()
+{
+    cin >> n >> m;
+    
+    for (int i = 1; i <= n; ++i){
+        p[i] = i;
+        cnt[i] = 1;
+    }
+    
+    string op;
+    int a, b, pa, pb;
+    while (m--) {
+        cin >> op;
+        
+        if (op == "C") {
+            scanf("%d%d", &a, &b);
+            pa = find(a), pb = find(b);
+            
+            if (pa != pb) {
+                p[pa] = pb;
+                cnt[pb] += cnt[pa];
+            }
+        }
+        else if (op == "Q1") {
+            scanf("%d%d", &a, &b);
+            pa = find(a), pb = find(b);
+            
+            if (pa == pb) puts("Yes");
+            else puts("No");
+        }
+        else {
+            scanf("%d", &a);
+            
+            printf("%d\n", cnt[find(a)]);
+        }
+    }
+    
+    return 0;
+}
