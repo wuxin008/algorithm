@@ -1,0 +1,45 @@
+//AcWing
+#include<iostream>
+#include<map>
+
+using namespace std;
+
+typedef pair<int, int> PII;
+
+int n, m;
+map<PII, PII> p;
+
+PII find(PII x)
+{
+    if (x != p[x]) p[x] = find(p[x]);
+    return p[x];
+}
+
+int main()
+{
+    cin >> n >> m;
+    for (int i = 0; i <= n; ++i) {
+        for (int j = 0; j <= n; ++j) {
+            p[{i, j}] = {i, j};
+        }
+    }
+    
+    int x, y, res = 0;
+    PII p1, p2;
+    char op[2];
+    for (int i = 1; i <= m; ++i) {
+        scanf("%d%d%s", &x, &y, op);
+        p1 = {x, y};
+        if (*op == 'D') p2 = {x + 1, y};
+        else p2 = {x, y + 1};
+        if (find(p1) != find(p2)) p[find(p1)] = p[p2];
+        else {
+            if (!res) res = i;
+        }
+    }
+    
+    if (res) cout << res << endl;
+    else puts("draw");
+    
+    return 0;
+}
