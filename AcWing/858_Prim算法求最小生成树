@@ -7,25 +7,29 @@ using namespace std;
 const int N = 510, inf = 0x3f3f3f3f;
 
 int n, m;
-int map[N][N], dist[N], st[N];
+int g[N][N], dist[N], st[N];
 
 int prim()
 {
     memset(dist, inf, sizeof dist);
+    dist[1] = 0;
     
     int res = 0;
-    for (int i = 0; i < n; ++i) {
-        int t = 0;
+    for (int i = 1; i <= n; ++i) {
+        int t = -1;
         for (int j = 1; j <= n; ++j) {
-            if (!st[j] && dist[t] >= dist[j]) 
+            if (!st[j] && (t == -1 || dist[t] > dist[j])) {
                 t = j;
+            }
         }
         
-        if (i && dist[t] == inf) return inf;
-        if (i) res += dist[t];
+        if (dist[t] == inf) return inf;
+        res += dist[t];
         st[t] = 1;
         
-        for (int j = 1; j <= n; ++j) dist[j] = min(dist[j], map[t][j]);
+        for (int j = 1; j <= n; ++j) {
+            dist[j] = min(dist[j], g[t][j]);
+        }
     }
     
     return res;
@@ -33,15 +37,18 @@ int prim()
 
 int main()
 {
-    scanf("%d%d", &n, &m);
-    memset(map, inf, sizeof map);
+    cin >> n >> m;
+    
+    memset(g, inf, sizeof g);
+    
+    int a, b, w;
     while (m--) {
-        int a, b, c;
-        scanf("%d%d%d", &a, &b, &c);
-        map[a][b] = map[b][a] = min(map[a][b], c);
+        scanf("%d%d%d", &a, &b, &w);
+        g[a][b] = g[b][a] = min(g[a][b], w);
     }
     
     int t = prim();
+    
     if (t == inf) puts("impossible");
     else printf("%d\n", t);
     
