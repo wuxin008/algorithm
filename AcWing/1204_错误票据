@@ -1,0 +1,33 @@
+//AcWing
+#include<iostream>
+#include<algorithm>
+
+using namespace std;
+
+const int N = 1000010;
+
+int n;
+int a[N], cnt;
+
+int main()
+{
+    cin >> n;
+    
+    int x;
+    int M = 0;
+    while (~scanf("%d", &x)) {
+        a[cnt++] = x;
+    }
+    
+    sort(a, a + cnt);
+    
+    int tmp = a[0], res1 = 0, res2;
+    for (int i = 1; i < cnt; ++i) {
+        if (i < cnt && a[i] == a[i - 1]) res2 = a[i];
+        if (i < cnt && a[i] == a[i - 1] + 2) res1 = a[i] - 1;
+    }
+    
+    cout << res1 << ' ' << res2 << endl;
+    
+    return 0;
+}
