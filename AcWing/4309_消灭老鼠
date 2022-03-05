@@ -1,0 +1,35 @@
+//AcWing
+#include<iostream>
+#include<cmath>
+#include<set>
+
+using namespace std;
+
+double inf = 1/ 1e-1000;
+
+int n;
+int px, py;
+set<double> cnt;
+
+int main()
+{
+    cin >> n >> px >> py;
+    
+    int x, y;
+    int res = 0;
+    while (n--) {
+        scanf("%d%d", &x, &y);
+        
+        double th = (y - py) * 1.0 / (x - px);
+        
+        if (th == -inf) th = inf;
+        if (!cnt.count(th)) {
+            cnt.insert(th);
+            res++;
+        }
+    }
+    
+    cout << res << endl;
+    
+    return 0;
+}
