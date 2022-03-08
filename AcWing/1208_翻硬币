@@ -1,0 +1,33 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+string a, b;
+
+void change(string &str, int k)
+{
+    if (str[k] == '*') str[k] = 'o';
+    else str[k] = '*';
+}
+
+void swapStr(string &str, int k)
+{
+    change(str, k);
+    change(str, k + 1);
+}
+
+int main()
+{
+    cin >> a >> b;
+    
+    int res = 0;
+    for (int i = 0; i < a.size(); ++i) {
+        if (a[i] != b[i]) {
+            swapStr(b, i);
+            res++;
+        }
+    }
+    
+    cout << res << endl;
+}
