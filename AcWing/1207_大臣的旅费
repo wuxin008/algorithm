@@ -1,0 +1,79 @@
+//AcWing
+#include<iostream>
+#include<queue>
+#include<cstring>
+
+using namespace std;
+
+typedef long long LL;
+
+const int N = 200010, inf = 0x3f3f3f3f;
+
+int n;
+int h[N], e[N], w[N], ne[N], idx;
+LL dist[N];
+int st[N];
+
+void add(int a, int b, int c)
+{
+    e[idx] = b;
+    w[idx] = c;
+    ne[idx] = h[a];
+    h[a] = idx++;
+}
+
+LL bfs()
+{
+    int v = 1;
+    LL res = 0;
+    for (int i = 0; i < 2; ++i) {
+        memset(dist, 0, sizeof dist);
+        memset(st, 0, sizeof st);
+        dist[v] = 0;
+        
+        queue<int> q;
+        q.push(v);
+        st[v] = 1;
+        
+        int v0;
+        while (q.size()) {
+            int t = q.front();
+            q.pop();
+            
+            for (int i = h[t]; i != -1; i = ne[i]) {
+                int k = e[i];
+                if (!st[k]) {
+                    dist[k] = dist[t] + w[i];
+                    if (dist[k] > res) {
+                        res = dist[k];
+                        v0 = k;
+                    }
+                    q.push(k);
+                    st[k] = 1;
+                }
+            }
+        }
+        v = v0;
+    }
+    
+    return res;
+}
+
+int main()
+{
+    cin >> n;
+    
+    memset(h, -1, sizeof h);
+    
+    int a, b, w;
+    for (int i = 0; i < n - 1; ++i) {
+        scanf("%d%d%d", &a, &b, &w);
+        add(a, b, w), add(b, a, w);
+    }
+    
+    LL len = bfs();
+    
+    printf("%lld\n", (11 + 10 + len) * len / 2);
+    
+    return 0;
+}
