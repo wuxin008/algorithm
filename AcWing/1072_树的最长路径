@@ -1,0 +1,53 @@
+//AcWing
+#include<iostream>
+#include<cstring>
+
+using namespace std;
+
+const int N = 200010;
+
+int n;
+int h[N], e[N], w[N], ne[N], idx;
+int f1[N], f2[N], res;
+
+void add(int a, int b, int c)
+{
+    e[idx] = b;
+    w[idx] = c;
+    ne[idx] = h[a];
+    h[a] = idx++;
+}
+
+void dfs(int v, int f)
+{
+    f1[v] = f2[v] = 0;
+    for (int i = h[v]; i != -1; i = ne[i]) {
+        int k = e[i];
+        if (k != f) {
+            dfs(k, v);
+            if (f1[k] + w[i] >= f1[v]) f2[v] = f1[v], f1[v] = f1[k] + w[i];
+            else if (f1[k] + w[i] >= f2[v]) f2[v] = f1[k] + w[i];
+        }
+    }
+    
+    res = max(res, f1[v] + f2[v]);
+}
+
+int main()
+{
+    cin >> n;
+    
+    memset(h, -1, sizeof h);
+    
+    int a, b, w;
+    for (int i = 1; i < n; ++i) {
+        scanf("%d%d%d", &a, &b, &w);
+        add(a, b, w), add(b, a, w);
+    }
+    
+    dfs(1, -1);
+    
+    printf("%d\n", res);
+    
+    return 0;
+}
