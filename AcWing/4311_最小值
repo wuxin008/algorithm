@@ -1,0 +1,22 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+int n, m;
+
+int main()
+{
+    cin >> n >> m;
+    
+    double a, b;
+    double res = 110;
+    while (n--) {
+        cin >> a >> b;
+        res = min(res, a / b);
+    }
+    
+    printf("%.6lf\n", res * m);
+    
+    return 0;
+}
