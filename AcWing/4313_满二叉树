@@ -1,0 +1,53 @@
+//AcWing
+#include<iostream>
+#include<cstring>
+
+using namespace std;
+
+const int N = 100010;
+
+int n, m;
+int h[N], e[N], w[N], ne[N], idx;
+int node[N], f[N];
+
+void add(int a, int b, int c)
+{
+    e[idx] = b;
+    w[idx] = c;
+    ne[idx] = h[a];
+    h[a] = idx++;
+}
+
+void dfs(int v)
+{
+    int d[2] = {0}, cnt = 0;
+    for (int i = h[v]; i != -1; i = ne[i]) {
+        int k = e[i];
+        dfs(k);
+        d[cnt++] = node[k] + w[i];
+        f[v] += f[k];
+    }
+    node[v] = max(d[0], d[1]);
+    f[v] += max(d[0], d[1]) - min(d[0], d[1]);
+}
+
+int main()
+{
+    cin >> m;
+    n = 1 << m + 1;
+    n--;
+    
+    memset(h, -1, sizeof h);
+    
+    int x;
+    for (int i = 2; i <= n; ++i) {
+        scanf("%d", &x);
+        add(i / 2, i, x);
+    }
+    
+    dfs(1);
+    
+    cout << f[1] << endl;
+    
+    return 0;
+}
