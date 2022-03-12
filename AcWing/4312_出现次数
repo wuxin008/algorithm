@@ -1,0 +1,42 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+const int N = 1010;
+
+int n, m, k;
+char s[N], p[N];
+int ne[N];
+
+int main()
+{
+    cin >> n >> m >> k;
+    
+    cin >> s + 1 >> p + 1;
+    
+    for (int i = 2, j = 0; i <= m; ++i) {
+        while (j && p[i] != p[j + 1]) j = ne[j];
+        if (p[i] == p[j + 1]) j++;
+        ne[i] = j;
+    }
+    
+    int l, r;
+    while (k--) {
+        cin >> l >> r;
+        int res = 0;
+        
+        for (int i = l, j = 0; i <= r; ++i) {
+            while (j && s[i] != p[j + 1]) j = ne[j];
+            if (s[i] == p[j + 1]) j++;
+            if (j == m) {
+                j = ne[j];
+                res++;
+            }
+        }
+        
+        printf("%d\n", res);
+    }
+    
+    return 0;
+}
