@@ -1,0 +1,30 @@
+//AcWing
+#include<iostream>
+#include<algorithm>
+#include<cstdio>
+
+using namespace std;
+
+const int N = 110;
+
+int n;
+int a[N];
+
+int main()
+{
+    n = 7;
+    
+    int maxs = 0;
+    for (int i = 0; i < n; ++i) {
+        scanf("%d", &a[i]);
+        if (a[i] > maxs) maxs = a[i];
+    }
+    
+    sort(a, a + n);
+    
+    int A = a[0], B = a[1], C = maxs - A - B;
+    
+    printf("%d %d %d\n", A, B, C);
+    
+    return 0;
+}
