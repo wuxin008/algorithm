@@ -1,0 +1,30 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+const int N = 110;
+
+int n;
+int a[N];
+
+int main()
+{
+    char op;
+    for (int i = 1; i <= 26; ++i) {
+        scanf("%c", &op);
+        a[op] = i;
+    }
+    
+    string str;
+    cin >> str;
+    
+    int res = 1;
+    for (int i = 1; i < str.size(); ++i) {
+        if (a[str[i]] <= a[str[i - 1]]) res++;
+    }
+    
+    cout << res << endl;
+    
+    return 0;
+}
