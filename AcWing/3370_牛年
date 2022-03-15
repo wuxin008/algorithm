@@ -1,0 +1,41 @@
+//AcWing
+#include<iostream>
+#include<map>
+
+using namespace std;
+
+const int N = 20;
+
+int n;
+char namel[N], namer[N], dir[N], ani[N];
+map<string, int> h;
+map<string, int> ha = {{"Ox", 0}, {"Tiger", 1}, {"Rabbit", 2}, {"Dragon", 3}, {"Snake", 4}, {"Horse", 5}, {"Goat", 6}, {"Monkey", 7}, {"Rooster", 8}, {"Dog", 9}, {"Pig", 10}, {"Rat", 11}};
+map<string, string> repr; 
+
+int main()
+{
+    cin >> n;
+    
+    string nameL, nameR;
+    while (n--) {
+        scanf("%s%*s%*s%s%s%*s%*s%s", namel, dir, ani, namer);
+        string nameL(namel), nameR(namer);
+        if (!h.size()) {
+            h[nameR] = 0;
+            repr[nameR] = "Ox";
+        }
+        repr[nameL] = string(ani);
+        if (dir[0] == 'p') {
+            if (repr[nameR] == repr[nameL]) h[nameL] = h[nameR] - 12;
+            else h[nameL] = h[nameR] - (12 + ha[repr[nameR]] - ha[repr[nameL]]) % 12;
+        }
+        else {
+            if (repr[nameR] == repr[nameL]) h[nameL] = h[nameR] + 12;
+            else h[nameL] = h[nameR] + (12 + ha[repr[nameL]] - ha[repr[nameR]]) % 12;
+        }
+    }
+    
+    cout << abs(h["Elsie"] - h["Bessie"]) << endl;
+    
+    return 0;
+}
