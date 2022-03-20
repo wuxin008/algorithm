@@ -1,0 +1,30 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+int cnt[] = {
+    1, 0, 0, 0,
+    1, 0, 1, 0,
+    2, 1, 1, 2,
+    0, 1, 0, 0
+};
+
+int main()
+{
+    int n;
+    
+    cin >> n;
+    
+    if (n == 0) cout << 1 << endl;
+    else {
+        int res = 0;
+        while (n) {
+            res += cnt[n % 16];
+            n /= 16;
+        }
+        cout << res << endl;
+    }
+    
+    return 0;
+}
