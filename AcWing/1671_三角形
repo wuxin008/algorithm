@@ -1,0 +1,60 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+typedef pair<int, int> PII;
+
+const int N = 110;
+
+int n;
+PII a[N];
+
+int check(int a, int b, int c)
+{
+    if (a == b && b == c) return 0;
+    if (a != b && b != c && a != c) return 0;
+    return 1;
+}
+
+int get(PII a, PII b, PII c)
+{
+    int l, r;
+    if (a.first == b.first) l = abs(a.second - b.second);
+    else if (a.first == c.first) l = abs(a.second - c.second);
+    else if (b.first == c.first) l = abs(b.second - c.second);
+    
+    if (a.second == b.second) r = abs(a.first - b.first);
+    else if (a.second == c.second) r = abs(a.first - c.first);
+    else if (b.second == c.second) r = abs(b.first - c.first);
+    
+    return l * r;
+    
+}
+
+int main()
+{
+    cin >> n;
+    
+    int x, y;
+    for (int i = 1; i <= n; ++i) {
+        scanf("%d%d", &x, &y);
+        a[i] = {x, y};
+    }
+    
+    int res = 0;
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= n; ++j) {
+            for (int k = 1; k <= n; ++k) {
+                if (i == j || j == k || i == k) continue;
+                if (!check(a[i].first, a[j].first, a[k].first)) continue;
+                if (!check(a[i].second, a[j].second, a[k].second)) continue;
+                res = max(res, get(a[i], a[j], a[k]));
+            }
+        }
+    }
+    
+    cout << res << endl;
+    
+    return 0;
+}
