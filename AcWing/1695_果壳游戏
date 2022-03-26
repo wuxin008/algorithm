@@ -1,0 +1,41 @@
+//AcWing
+#include<iostream>
+#include<cstring>
+
+using namespace std;
+
+typedef pair<int, int> PII;
+
+const int N = 110;
+
+int n;
+int a[N], query[N];
+PII op[N];
+
+int main()
+{
+    cin >> n;
+    
+    int x, y, z;
+    for (int i = 0; i < n; ++i) {
+        scanf("%d%d%d", &x, &y, &z);
+        op[i] = {x, y};
+        query[i] = z;
+    }
+    
+    int res = 0;
+    for (int i = 1; i <= 3; ++i) {
+        int cnt = 0;
+        memset(a, 0, sizeof a);
+        a[i] = 1;
+        for (int j = 0; j < n; ++j) {
+            swap(a[op[j].first], a[op[j].second]);
+            if (a[query[j]]) cnt++;
+        }
+        res = max(res, cnt);
+    }
+    
+    cout << res << endl;
+    
+    return 0;
+}
