@@ -1,0 +1,64 @@
+//AcWing
+#include<iostream>
+#include<queue>
+
+using namespace std;
+
+typedef pair<int, int> PII;
+
+const int N = 1010;
+
+PII ed;
+int g[N][N];
+int st[N][N];
+int dist[N][N];
+
+void bfs(int x, int y)
+{
+    queue<PII> q;
+    q.push({x, y});
+    st[x][y] = 1;
+    
+    int dx[4] = {1, -1, 0, 0}, dy[4] = {0, 0, 1, -1};
+    while (q.size()) {
+        PII t = q.front();
+        q.pop();
+        
+        int x = t.first, y = t.second;
+        for (int i = 0; i < 4; ++i) {
+            int a = x + dx[i], b = y + dy[i];
+            if (g[a][b] && ! st[a][b]) {
+                q.push({a, b});
+                st[a][b] = 1;
+                dist[a][b] = dist[x][y] + 1;
+            }
+        }
+    }
+}
+
+int main()
+{
+    int cnt = 0;
+    char ch;
+    PII s = {500, 500};
+    g[500][500] = 1;
+    st[500][500] = 1;
+    while (cin >> ch) {
+        cnt++;
+        int x = s.first, y = s.second;
+        if (ch == 'R') y++;
+        else if (ch == 'L') y--;
+        else if (ch == 'U') x--;
+        else if (ch == 'D') x++;
+        s = {x, y};
+        g[x][y] = 1;
+    }
+    ed = s;
+    
+    bfs(500, 500);
+    int t = dist[ed.first][ed.second];
+    if (t != cnt) puts("NO");
+    else puts("YES");
+    
+    return 0;
+}
