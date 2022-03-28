@@ -20,7 +20,7 @@ int main()
     }
     
     int res = 0;
-    if (bx == lx && lx == rx && abs(by - ly) > abs(by - ry) || by == ly && ly == ry && abs(bx - lx) > abs(bx - rx)) res = abs(lx - bx) + abs(ly - by) + 1;
+    if (bx == lx && lx == rx && ry < max(ly, by) && ry > min(ly, by) || by == ly && ly == ry && rx > min(lx, bx) && rx < max(lx, bx)) res = abs(lx - bx) + abs(ly - by) + 1;
     else res = abs(lx - bx) + abs(ly - by) - 1;
     
     cout << res << endl;
