@@ -1,0 +1,19 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+int main()
+{
+    int a, b, c;
+    cin >> a >> b >> c;
+    
+    int dmin = min(b - a - 1, c - b - 1);
+    int dmax = max(b - a - 1, c - b - 1);
+    
+    if (dmin == 0) dmin = dmax;
+    cout << (dmin >= 2 ? 2 : dmin) << endl;
+    cout << dmax << endl;
+    
+    return 0;
+}
