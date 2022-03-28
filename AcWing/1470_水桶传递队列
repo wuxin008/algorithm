@@ -1,0 +1,29 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+int main()
+{
+    int n = 10;
+    
+    int bx, by, lx, ly, rx, ry;
+    
+    char ch;
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            cin >> ch;
+            if (ch == 'B') bx = i, by = j;
+            else if (ch == 'L') lx = i, ly = j;
+            else if (ch == 'R') rx = i, ry = j;
+        }
+    }
+    
+    int res = 0;
+    if (bx == lx && lx == rx && abs(by - ly) > abs(by - ry) || by == ly && ly == ry && abs(bx - lx) > abs(bx - rx)) res = abs(lx - bx) + abs(ly - by) + 1;
+    else res = abs(lx - bx) + abs(ly - by) - 1;
+    
+    cout << res << endl;
+    
+    return 0;
+}
