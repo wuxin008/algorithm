@@ -1,0 +1,50 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+const int N = 2010;
+
+int n = 2;
+int g[N][N];
+
+int main()
+{
+    int x1, y1, x2, y2;
+    while (n--) {
+        cin >> x1 >> y1 >> x2 >> y2;
+        x1 += 1000;
+        y1 += 1000;
+        x2 += 1000;
+        y2 += 1000;
+        
+        for (int i = x1; i <= x2 - 1; ++i) {
+            for (int j = y1; j <= y2 - 1; ++j) {
+                g[i][j] = 1;
+            }
+        }
+    }
+    
+    cin >> x1 >> y1 >> x2 >> y2;
+    x1 += 1000;
+    y1 += 1000;
+    x2 += 1000;
+    y2 += 1000;
+    
+    for (int i = x1; i <= x2 - 1; ++i) {
+        for (int j = y1; j <= y2 - 1; ++j) {
+            g[i][j] = 2;
+        }
+    }
+    
+    int res = 0;
+    for (int i = 0; i < N; ++i) {
+        for (int j = 0; j < N; ++j) {
+            if (g[i][j] == 1) res++;
+        }
+    }
+    
+    cout << res << endl;
+    
+    return 0;
+}
