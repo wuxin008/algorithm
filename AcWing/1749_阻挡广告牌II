@@ -1,0 +1,28 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+int x1[10], y1[10], x2[10], y2[10];
+
+int main()
+{
+    for (int i = 1; i <= 2; ++i) {
+        cin >> x1[i] >> y1[i] >> x2[i] >> y2[i];
+    }
+    
+    int l = x2[1] - x1[1], w = y2[1] - y1[1];
+    int ul = max(0, min(x2[2], x2[1]) - max(x1[2], x1[1]));
+    int uw = max(0, min(y2[2], y2[1]) - max(y1[2], y1[1]));
+    
+    int res = 0;
+    if (ul * uw == 0 || x1[1] <= x1[2] && x2[2] <= x2[1] || y1[1] <= y1[2] && y2[2] <= y2[1]) res = l * w;
+    else if (ul == l && uw == w) res = 0;
+    else if (ul == l) res = abs(w - uw) * l;
+    else if (uw == w) res = abs(l - ul) * w;
+    else res = l * w;
+    
+    cout << res << endl;
+    
+    return 0;
+}
