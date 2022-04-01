@@ -1,0 +1,11 @@
+//AcWing
+#include<iostream>
+using namespace std;
+  
+int main () {
+    int cow[56] = {0,1,2,3,4};
+    for(int i = 4; i < 55; i ++) cow[i] = cow[i-1] + cow[i-3];
+    int n;
+    while(scanf("%d", &n) && n) cout << cow[n] << endl;
+    return 0;
+}
