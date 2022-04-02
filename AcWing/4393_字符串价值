@@ -1,0 +1,30 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+const int N = 100;
+
+typedef long long LL;
+
+int a[N];
+
+int n;
+
+int main()
+{
+    for (int i = 0; i < 4; ++i) {
+        cin >> a[i];
+    }
+    
+    string str;
+    cin >> str;
+    
+    LL res = 0;
+    for (int i = 0; i < str.size(); ++i) {
+        res += a[str[i] - '1'];
+    }
+    cout << res << endl;
+    
+    return 0;
+}
