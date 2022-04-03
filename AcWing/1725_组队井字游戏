@@ -1,0 +1,97 @@
+//AcWing
+#include<iostream>
+#include<set>
+
+using namespace std;
+
+typedef pair<int, int> PII;
+
+const int N = 10;
+
+char g[N][N];
+set<char> h;
+
+int check(set<char> s1, set<char> s2)
+{
+    if (s1.size() != s2.size()) return 0;
+    for (set<char>::iterator a = s1.begin(), b = s2.begin(); a != s1.end() && b != s2.end(); ++a, ++b) {
+        if (*a != *b) return 0;
+    }
+    return 1;
+}
+
+int check(set<char> s1)
+{
+    int res = 0;
+    
+    for (int i = 0; i < 3; ++i) {
+        set<char> s2;
+        s2.insert(g[i][0]);
+        s2.insert(g[i][1]);
+        s2.insert(g[i][2]);
+        if (check(s1, s2)) res++;
+    }
+    
+    for (int i = 0; i < 3; ++i) {
+        set<char> s2;
+        s2.insert(g[0][i]);
+        s2.insert(g[1][i]);
+        s2.insert(g[2][i]);
+        if (check(s1, s2)) res++;
+    }
+    
+    
+    if (1) {
+        set<char> s2;
+        s2.insert(g[0][0]);
+        s2.insert(g[1][1]);
+        s2.insert(g[2][2]);
+        if (check(s1, s2)) res++;
+    }
+    
+    if (1) {
+        set<char> s2;
+        s2.insert(g[0][2]);
+        s2.insert(g[1][1]);
+        s2.insert(g[2][0]);
+        if (check(s1, s2)) res++;
+    }
+    
+    return res;
+}
+
+int main()
+{
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 3; ++j) {
+            cin >> g[i][j];
+            if (!h.count(g[i][j])) h.insert(g[i][j]);
+        }
+    }
+    
+    int res = 0;
+    for (auto a : h) {
+        set<char> s1;
+        s1.insert(a);
+        if (check(s1)) res++;
+    }
+    cout << res << endl;
+    
+    res = 0;
+    for (auto a : h) {
+        for (auto b : h) {
+            PII s[10] = {};
+            int cnt = 0;
+            if (a < b) {
+                set<char> s1;
+                s1.insert(a);
+                s1.insert(b);
+                if (check(s1)) res++;
+            }
+        }
+    }
+    
+    cout << res << endl;
+    
+    return 0;
+}
