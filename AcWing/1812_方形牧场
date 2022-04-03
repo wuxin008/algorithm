@@ -1,0 +1,26 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+const int N = 100;
+
+int x[N], y[N];
+
+int main()
+{
+    int xmin = 10, xmax = 0, ymin = 10, ymax = 0;
+    for (int i = 0; i < 4; ++i) {
+        cin >> x[i] >> y[i];
+        xmin = min(xmin, x[i]);
+        xmax = max(xmax, x[i]);
+        ymin = min(ymin, y[i]);
+        ymax = max(ymax, y[i]);
+    }
+    
+    int l = max(abs(ymax - ymin), abs(xmax - xmin));
+    
+    cout << l * l << endl;
+    
+    return 0;
+}
