@@ -1,0 +1,50 @@
+//AcWing
+#include<iostream>
+#include<map>
+#include<set>
+
+using namespace std;
+
+const int N = 10;
+
+int n;
+string names[N] = {"Bessie", "Elsie", "Daisy", "Gertie", "Annabelle", "Maggie", "Henrietta"};
+map<string, int> h;
+
+int main()
+{
+    for (int i = 0; i < 7; ++i) {
+        h[names[i]] = 0;
+    }
+    
+    cin >> n;
+    string str;
+    int x;
+    while (n--) {
+        cin >> str >> x;
+        h[str] += x;
+    }
+    
+    set<int> product;
+    for (int i = 0; i < 7; ++i) {
+        product.insert(h[names[i]]);
+    }
+    int xmin = *product.begin(), xmin2 = *(++product.begin());
+    if (product.size() == 1) {
+        cout << "Tie" << endl;
+        return 0;
+    }
+    
+    int cnt = 0;
+    string ans;
+    for (int i = 0; i < 7; ++i) {
+        if (h[names[i]] == xmin2) {
+            cnt++;
+            ans = names[i];
+        }
+    }
+    if (cnt > 1) cout << "Tie" << endl;
+    else cout << ans << endl;
+    
+    return 0;
+}
