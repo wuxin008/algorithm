@@ -1,0 +1,20 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+int main()
+{
+    int a, b, c, d;
+    cin >> a >> b >> c >> d;
+    
+    int l = max(a, c), r = min(b, d);
+    
+    int res = 0;
+    if (l > r) res = abs(b - a) + abs(d - c);
+    else res = abs(max(b, d) - min(a, c));
+    
+    cout << res << endl;
+    
+    return 0;
+}
