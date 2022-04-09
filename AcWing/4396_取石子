@@ -1,0 +1,16 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+int main()
+{
+    int a, b;
+    
+    cin >> a >> b;
+    
+    if (a <= b) puts("Second");
+    else puts("First");
+    
+    return 0;
+}
