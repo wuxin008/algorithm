@@ -1,0 +1,35 @@
+//AcWing
+#include<iostream>
+#include<map>
+
+using namespace std;
+
+int n, k;
+map<int, int> s;
+
+int main()
+{
+    cin >> n >> k;
+    
+    int x, xmax = 0;
+    for (int i = 0; i < n; ++i) {
+        cin >> x;
+        xmax = max(xmax, x);
+        s[x]++;
+    }
+    
+    int res = 0;
+    for (auto i = s.begin(); i != s.end(); ++i) {
+        auto t = i;
+        int tmp = (*t).second;
+        for (int j = 1; j <= k; ++j) {
+            if (t != s.end()) t++;
+            if ((*t).first - (*i).first <= k) tmp += (*t).second;
+        }
+        res = max(res, tmp);
+    }
+    
+    cout << res << endl;
+    
+    return 0;
+}
