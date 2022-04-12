@@ -1,0 +1,40 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+const int N = 100010;
+
+typedef pair<int, int> PII;
+typedef long long LL;
+
+int n;
+PII a[N];
+
+int get(PII p1, PII p2)
+{
+    return abs(p1.first - p2.first) + abs(p1.second - p2.second);
+}
+
+int main()
+{
+    cin >> n;
+    
+    LL total = 0;
+    
+    int x, y;
+    for (int i = 1; i <= n; ++i) {
+        cin >> x >> y;
+        a[i] = {x, y};
+    }
+    
+    int l = 0;
+    for (int i = 1; i < n; ++i) {
+        if (i < n - 1) l = min(l, get(a[i], a[i + 2]) - get(a[i], a[i + 1]) - get(a[i + 1], a[i + 2]));
+        total += get(a[i], a[i + 1]);
+    }
+    
+    cout << total + l << endl;
+    
+    return 0;
+}
