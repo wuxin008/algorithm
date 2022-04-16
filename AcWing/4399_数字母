@@ -1,0 +1,25 @@
+//AcWing
+#include<iostream>
+#include<set>
+
+using namespace std;
+
+set<char> h;
+
+int main()
+{
+    char ch;
+    
+    cin >> ch;
+    
+    while (ch != '}') {
+        if (isalpha(ch)) {
+            h.insert(ch);
+        }
+        cin >> ch;
+    }
+    
+    cout << h.size() << endl;
+    
+    return 0;
+}
