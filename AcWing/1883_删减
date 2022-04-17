@@ -1,0 +1,22 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+string s, t, res;
+
+int main()
+{
+    cin >> s >> t;
+    
+    for (int i = 0; i < s.size(); ++i) {
+        res += s[i];
+        if (res.size() >= t.size() && res.substr(res.size() - t.size(), res.size()) == t) {
+            res.erase(res.begin() + res.size() - t.size(), res.end());
+        }
+    }
+    
+    cout << res << endl;
+    
+    return 0;
+}
