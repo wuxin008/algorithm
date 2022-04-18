@@ -1,0 +1,40 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+int n;
+
+int get(int a, int b)
+{
+    if (a > b) {
+        swap(a, b);
+    }
+    return min(b - a, a + n - b);
+}
+
+int main()
+{
+    cin >> n;
+    
+    int a[3], b[3], l[3] = {}, cnt[3];
+    
+    for (int i = 0; i < 3; ++i) {
+        cin >> a[i];
+    }
+    for (int i = 0; i < 3; ++i) {
+        cin >> b[i];
+    }
+    
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 1; j <= n; ++j) {
+            if (get(a[i], j) <= 2 && get(b[i], j) <= 2) l[i]++;
+        }
+    }
+    
+    int res = 2 * min(5, n) * min(5, n) * min(5, n);
+    res -= l[0] * l[1] * l[2];
+    cout << res << endl;
+    
+    return 0;
+}
