@@ -1,0 +1,101 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+#define fi first
+#define se second
+
+typedef pair<int, int> PII;
+
+const int N = 1010;
+
+int n, m;
+string g[N];
+
+int check(PII p)
+{
+    int x = p.fi, y = p.se;
+    
+    if (x < 0 || x >= n || y < 0 || y >= m) return 0;
+    else return 1;
+}
+
+PII get(PII p, PII& d)
+{
+    int x = p.fi, y = p.se;
+    
+    if (g[x][y] == '/') {
+        int a = -d.fi, b = -d.se;
+        swap(a, b);
+        d = {a, b};
+    }
+    else {
+        int a = d.fi, b = d.se;
+        swap(a, b);
+        d = {a, b};
+    }
+    
+    p = {x + d.fi, y + d.se};
+    
+    return p;
+}
+
+int main()
+{
+    cin >> n >> m;
+    
+    for (int i = 0; i < n; ++i) {
+        cin >> g[i];
+    }
+    
+    int res = 0;
+    
+    //上
+    for (int i = 0; i < m; ++i) {
+        int t = 0;
+        PII p = {0, i}, d = {1, 0};
+        while (check(p)) {
+            t++;
+            p = get(p, d);
+        }
+        res = max(res, t);
+    }
+    
+    //下
+    for (int i = 0; i < m; ++i) {
+        int t = 0;
+        PII p = {n - 1, i}, d = {-1, 0};
+        while (check(p)) {
+            t++;
+            p = get(p, d);
+        }
+        res = max(res, t);
+    }
+    
+    //左
+    for (int i = 0; i < n; ++i) {
+        int t = 0;
+        PII p = {i, 0}, d = {0, 1};
+        while (check(p)) {
+            t++;
+            p = get(p, d);
+        }
+        res = max(res, t);
+    }
+    
+    //右
+    for (int i = 0; i < n; ++i) {
+        int t = 0;
+        PII p = {i, m - 1}, d = {0, -1};
+        while (check(p)) {
+            t++;
+            p = get(p, d);
+        }
+        res = max(res, t);
+    }
+    
+    cout << res << endl;
+    
+    return 0;
+}
