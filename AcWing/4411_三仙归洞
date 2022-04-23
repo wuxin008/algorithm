@@ -1,0 +1,28 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+int main()
+{
+    int n, x;
+    
+    cin >> n >> x;
+    
+    int a[3] = {};
+    a[x] = 1;
+    
+    while (n % 6 != 0) {
+        if (n-- & 1) swap(a[0], a[1]);
+        else swap(a[1], a[2]);
+    }
+    
+    for (int i = 0; i < 3; ++i) {
+        if (a[i]) {
+            cout << i << endl;
+            break;
+        }
+    }
+    
+    return 0;
+}
