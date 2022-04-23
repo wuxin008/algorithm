@@ -1,0 +1,30 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+int n, m;
+
+int main()
+{
+    cin >> n >> m;
+    
+    int res = 0, day = 0;
+    while (n) {
+        int t = n / m;
+        res += t * m;
+        n -= t * m;
+        day = t + n % m;
+        if (day >= m) {
+            n = day;
+        }
+        else {
+            res += day;
+            break;
+        }
+    }
+    
+    cout << res << endl;
+    
+    return 0;
+}
