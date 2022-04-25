@@ -1,0 +1,40 @@
+//AcWing
+#include<iostream>
+#include<cstring>
+#include<algorithm>
+
+using namespace std;
+
+typedef long long LL;
+
+int main()
+{
+    LL a, b;
+    
+    cin >> a >> b;
+    
+    int res = 0;
+    
+    for (int i = 3; i <= 17; ++i) {
+        for (int j = 0; j < 10; ++j) {
+            for (int k = 0; k < 10; ++k) {
+                if (j != k) {
+                    for (int u = 0; u < i; ++u) {
+                        string str(i, '0' + j);
+                        str[u] = '0' + k;
+                        if (str[0] != '0') {
+                            LL t = stoll(str);
+                            if (t >= a && t <= b) {
+                                res++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    cout << res << endl;
+    
+    return 0;
+}
