@@ -1,0 +1,50 @@
+//AcWing
+#include<iostream>
+#include<map>
+
+using namespace std;
+
+const int N = 50010;
+
+string str;
+string p1 = "((", p2 = "))";
+int a[N];
+int ne[10];
+
+int main()
+{
+    cin >> str;
+    
+    ne[0] = -1;
+    for (int i = 1, j = -1; j < p1.size(); ++i) {
+        while (j != -1 && p1[i] != p1[j + 1]) j = ne[j];
+        if (p1[i] == p1[j + 1]) j++;
+        ne[i] = j;
+    }
+    
+    for (int i = 0, j = -1; i < str.size(); ++i) {
+        while (j != -1 && str[i] != p1[j + 1]) j = ne[j];
+        if (str[i] == p1[j + 1]) j++;
+        if (j == 1) {
+            a[i - 1] = 1;
+        }
+    }
+    
+    for (int i = 0, j = -1; i < str.size(); ++i) {
+        while (j != -1 && str[i] != p2[j + 1]) j = ne[j];
+        if (str[i] == p2[j + 1]) j++;
+        if (j == 1) {
+            a[i - 1] = 2;
+        }
+    }
+    
+    int t = 0, res = 0;
+    for (int i = 0; i < N; ++i) {
+        if (a[i] == 1) t++;
+        else if (a[i] == 2) res += t;
+    }
+    
+    cout << res << endl;
+    
+    return 0;
+}
