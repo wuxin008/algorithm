@@ -1,0 +1,35 @@
+//AcWing
+#include<iostream>
+
+using namespace std;
+
+const int N = 100010;
+
+int n;
+
+int main()
+{
+    cin >> n;
+    
+    int minusX = -0x3f3f3f3f, plusX = 0x3f3f3f3f;
+    
+    int res = 0;
+    for (int i = 0; i < n; ++i) {
+        int x;
+        scanf("%d ", &x);
+        
+        if (x > 0) {
+            res += x;
+            if (x & 1) plusX = min(plusX, x);
+        }
+        else if (x < 0) {
+            if (x & 1) minusX = max(minusX, x);
+        }
+    }
+    
+    if (res % 2 == 0) res -= min(abs(minusX), plusX);
+    
+    cout << res << endl;
+    
+    return 0;
+}
