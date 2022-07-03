@@ -1,0 +1,68 @@
+//AcWing
+#include<iostream>
+#include<algorithm>
+
+using namespace std;
+
+const int N = 100010;
+
+typedef long long LL;
+
+int n, m, t;
+LL col[N], row[N];
+
+int main()
+{
+    cin >> n >> m >> t;
+    
+    for (int i = 0; i < t; ++i) {
+        int x, y;
+        cin >> x >> y;
+        row[x]++;
+        col[y]++;
+    }
+    
+    bool yes1 = 0, yes2 = 0;
+    LL times1 = 0, times2 = 0;
+    if (t % n == 0) {
+        yes1 = 1;
+        int ave = t / n;
+        for (int i = 1; i <= n; ++i) {
+            row[i] -= ave;
+            if (row[i]) yes1 = 0;
+            row[i] += row[i - 1];
+        }
+        sort(row + 1, row + 1 + n);
+        for (int i = 1; i <= n; ++i) {
+            times1 += abs(row[i] - row[n + 1 >> 1]);
+        }
+    }
+    if (t % m == 0) {
+        yes2 = 1;
+        int ave = t / m;
+        for (int i = 1; i <= m; ++i) {
+            col[i] -= ave;
+            if (col[i]) yes2 = 0;
+            col[i] += col[i - 1];
+        }
+        sort(col + 1, col + 1 + m);
+        for (int i = 1; i <= m; ++i) {
+            times2 += abs(col[i] - col[m + 1 >> 1]);
+        }
+    }
+    
+    if (times1 == 0 && yes1 == 0 && times2 == 0 && yes2 == 0) {
+        puts("impossible");
+    }
+    else if ((times1 || yes1) && (times2 || yes2)) {
+        printf("both %lld", times1 + times2);
+    }
+    else if (times1 || yes1) {
+        printf("row %lld", times1);
+    }
+    else {
+        printf("column %lld", times2);
+    }
+    
+    return 0;
+}
